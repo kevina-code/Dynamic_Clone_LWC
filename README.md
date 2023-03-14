@@ -8,7 +8,7 @@ Only child objects actually containing records are displayed.
 
 <a href="https://githubsfdeploy.herokuapp.com">
 	<img alt="Deploy to Salesforce"
-		src="https://raw.githubusercontent.com/kevina-code/githubsfdeploy/master/deploy.png">
+		src="https://raw.githubusercontent.com/kevina-code/githubsfdeploy/master/deploy.png" alt="Deploy to Salesforce" />
 </a>
 
 Screenshot:
