@@ -1,0 +1,68 @@
+<!--
+ * Author: Kevin Antonioli (braveitnow@pm.me) 
+ * Created: 2/27/2023
+ *
+ * Description: HTML for Dynamic Clone LWC
+ *
+ * Revisions:
+ * Date : Name : Notes
+-->
+<template>
+  <lightning-modal-header label="Dynamic Clone"></lightning-modal-header>
+  <div
+    id="containerDiv"
+    class="container slds-table_header-fixed_container slds-border_right slds-border_left tableScroll slds-scrollable_x"
+  >
+    <div>
+      <div if:false={hasLoaded}>
+        <lightning-spinner
+          size="large"
+          alternative-text="Loading..."
+        ></lightning-spinner>
+      </div>
+      <!-- we are not using lightning-datatable because it has no onclick event handler (only onrowclick which passes the whole row)-->
+      <table
+        aria-multiselectable="true"
+        class="related-list-table slds-table slds-table_bordered slds-table_header-fixed slds-table_resizable-cols slds-table_fixed-layout"
+        role="grid"
+      >
+        <thead>
+          <tr>
+            <!-- STATIC TABLE COLUMNS -->
+            <th>Select</th>
+            <th>Object Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- loop through child objects -->
+          <template
+            if:true={childInfos}
+            for:each={childInfos}
+            for:item="childInfo"
+            for:index="index"
+          >
+            <tr if:true={childInfo.hasRecords} key={childInfo.index}>
+              <td>
+                <lightning-input
+                  type="checkbox"
+                  label="row-select-all-checkbox"
+                  variant="label-hidden"
+                  data-relname={childInfo.relName}
+                  onchange={appendToSelected}
+                ></lightning-input>
+              </td>
+              <td>{childInfo.relName}</td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <lightning-modal-footer>
+    <lightning-button
+      label="Clone records for selected"
+      onclick={cloneSelectedRecords}
+      disabled={cloneButtonDisabled}
+    ></lightning-button>
+  </lightning-modal-footer>
+</template>
