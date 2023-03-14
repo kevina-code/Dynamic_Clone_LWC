@@ -6,8 +6,9 @@ Child objects can be filtered via comma-delimited list in the target config.
 
 Only child objects actually containing records are displayed.
 
-<a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/kevina-code/Dynamic_Clone_LWC?ref=master">
-  <img src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png" alt="Deploy to Salesforce" />
+<a href="https://githubsfdeploy.herokuapp.com">
+	<img alt="Deploy to Salesforce"
+		src="https://raw.githubusercontent.com/kevina-code/githubsfdeploy/master/deploy.png">
 </a>
 
 Screenshot:
