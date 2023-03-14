@@ -2,7 +2,7 @@
 LWC that can be dropped into any lightning record page. It can also be tied to quick actions.
 
 Displays a canvas with child objects that the user can select to clone records from. 
-Child objects can be filtered via comma-delimited list in the target config.
+Child objects available for cloning can be filtered via comma-delimited list in the target config.
 
 Only child objects actually containing records are displayed.
 
