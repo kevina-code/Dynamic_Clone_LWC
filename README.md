@@ -1,5 +1,5 @@
 # Dynamic_Clone
-LWC that can be dropped into any lightning record page and provide ability to clone records from multiple child objects in one swoop. It can also be tied to quick actions.
+Object-agnostic LWC that can be dropped into any lightning record page and provide ability to clone records from multiple child objects in one swoop. It can also be tied to quick actions.
 
 Displays a canvas with child objects that the user can select to clone records from. 
 Child objects available for cloning can be filtered via comma-delimited list in the target config.
