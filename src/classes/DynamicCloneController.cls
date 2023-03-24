@@ -20,9 +20,12 @@ public with sharing class DynamicCloneController {
     List<ChildInfo> childInfos = new List<ChildInfo>();
     try {
       String parentObjApiName = String.valueOf(parentRecordId.getSobjectType());
-      SObjectType parentObjType = ApexUtils.globalDescribe.get(
-        parentObjApiName
-      );
+      SObjectType parentObjType = ((SObject) Type.forName(
+            'Schema',
+            parentObjApiName
+          )
+          .newInstance())
+        .getSObjectType();
       Schema.DescribeSObjectResult describeResult = parentObjType.getDescribe();
 
       List<String> preDefinedChildRelNames = new List<String>();
@@ -250,9 +253,12 @@ public with sharing class DynamicCloneController {
   ) {
     try {
       String parentObjApiName = String.valueOf(parentRecordId.getSobjectType());
-      SObjectType parentObjType = ApexUtils.globalDescribe.get(
-        parentObjApiName
-      );
+      SObjectType parentObjType = ((SObject) Type.forName(
+            'Schema',
+            parentObjApiName
+          )
+          .newInstance())
+        .getSObjectType();
       Schema.DescribeSObjectResult describeResult = parentObjType.getDescribe();
       List<String> relNamesToCloneRecsFor = selectedObjsStr.split(',');
 
