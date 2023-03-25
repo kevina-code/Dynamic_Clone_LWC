@@ -35,7 +35,7 @@ public with sharing class DynamicCloneController {
         !String.isBlank(childRelationshipNames)
       ) {
         for (String childRelName : childRelationshipNames.split(',')) {
-          preDefinedChildRelNames.add(childRelName);
+          preDefinedChildRelNames.add(childRelName.trim());
         }
       }
 
