@@ -64,7 +64,6 @@ export default class MyModal extends LightningModal {
       this.selectedObjs.delete(event.target.dataset.relname);
     }
     this.cloneButtonDisabled = this.selectedObjs.size === 0 ? true : false;
-    console.log("this.selectedObjs: ", this.selectedObjs);
   }
 
   /**
@@ -79,11 +78,22 @@ export default class MyModal extends LightningModal {
       selectedObjsStr: selectedObjsStr
     })
       .then((result) => {
+        let title = result.numOfRecords <= 200 ? "Success!" : "Pending";
+        let message =
+          result.numOfRecords <= 200
+            ? "Successfully cloned " +
+              result.numOfRecords +
+              " records for selected objects!"
+            : "Large clone of " +
+              result.numOfRecords +
+              " records in progress. Should be done within 60 seconds. JobId: " +
+              result.jobId;
+        let variant = result.numOfRecords <= 200 ? "success" : "info";
         this.dispatchEvent(
           new ShowToastEvent({
-            title: "Success!",
-            message: "Successfully cloned selected object records!",
-            variant: "success"
+            title: title,
+            message: message,
+            variant: variant
           })
         );
         this.hasLoaded = true;

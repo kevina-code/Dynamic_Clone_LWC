@@ -1,8 +1,7 @@
 /**
- * Author: Kevin Antonioli (kevin@abccorp.com)
- * Created: 02/27/2023
- * // // // // // // //
+ * Author     : Kevin Antonioli (braveitnow@pm.me)
  * Description: provides apex unit tests for DynamicCloneController.cls
+ * Created    : 02.27.2023
  */
 @isTest
 public class DynamicCloneControllerTest {
@@ -26,7 +25,8 @@ public class DynamicCloneControllerTest {
 
     Test.startTest();
     List<DynamicCloneController.ChildInfo> childInfoList = DynamicCloneController.getChildRelInfo(
-      account.Id
+      account.Id,
+      'Contacts, Opportunities'
     );
     Set<String> childRelNames = new Set<String>();
     for (DynamicCloneController.ChildInfo childInfo : childInfoList) {

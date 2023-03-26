@@ -20,9 +20,12 @@ public with sharing class DynamicCloneController {
     List<ChildInfo> childInfos = new List<ChildInfo>();
     try {
       String parentObjApiName = String.valueOf(parentRecordId.getSobjectType());
-      SObjectType parentObjType = ApexUtils.globalDescribe.get(
-        parentObjApiName
-      );
+      SObjectType parentObjType = ((SObject) Type.forName(
+            'Schema',
+            parentObjApiName
+          )
+          .newInstance())
+        .getSObjectType();
       Schema.DescribeSObjectResult describeResult = parentObjType.getDescribe();
 
       List<String> preDefinedChildRelNames = new List<String>();
@@ -32,7 +35,7 @@ public with sharing class DynamicCloneController {
         !String.isBlank(childRelationshipNames)
       ) {
         for (String childRelName : childRelationshipNames.split(',')) {
-          preDefinedChildRelNames.add(childRelName);
+          preDefinedChildRelNames.add(childRelName.trim());
         }
       }
 
@@ -244,15 +247,19 @@ public with sharing class DynamicCloneController {
    * @return  void
    */
   @AuraEnabled
-  public static void performDynamicClone(
+  public static CloneInfo performDynamicClone(
     Id parentRecordId,
     String selectedObjsStr
   ) {
+    CloneInfo cloneInfo = new CloneInfo();
     try {
       String parentObjApiName = String.valueOf(parentRecordId.getSobjectType());
-      SObjectType parentObjType = ApexUtils.globalDescribe.get(
-        parentObjApiName
-      );
+      SObjectType parentObjType = ((SObject) Type.forName(
+            'Schema',
+            parentObjApiName
+          )
+          .newInstance())
+        .getSObjectType();
       Schema.DescribeSObjectResult describeResult = parentObjType.getDescribe();
       List<String> relNamesToCloneRecsFor = selectedObjsStr.split(',');
 
@@ -290,7 +297,6 @@ public with sharing class DynamicCloneController {
             try {
               for (SObject childRec : parent.getSObjects(childRelName)) {
                 SObject childRecClone = childRec.clone(false, false);
-                /*childRecClone.put('Name',childRec.get('Name') +' ' +ApexUtils.generateRandomId(5)); */
                 clonesToInsert.add(childRecClone);
               }
             } catch (exception e) {
@@ -305,8 +311,17 @@ public with sharing class DynamicCloneController {
         }
       }
       if (!clonesToInsert.isEmpty()) {
+        cloneInfo.numOfRecords = clonesToInsert.size();
         clonesToInsert.sort();
-        insert clonesToInsert;
+        if (clonesToInsert.size() <= 200) {
+          insert clonesToInsert;
+        } else {
+          // boost CPU limit from 10 to 60 seconds if we have over 200 records to clone:
+          Id jobId = System.enqueueJob(
+            new DynamicCloneQueueable(clonesToInsert)
+          );
+          cloneInfo.jobId = jobId;
+        }
       }
     } catch (Exception e) {
       String msg =
@@ -317,5 +332,16 @@ public with sharing class DynamicCloneController {
       System.debug(msg);
       throw new AuraHandledException(msg);
     }
+    return cloneInfo;
+  }
+
+  /**
+   * clone info wrapper
+   */
+  public class CloneInfo {
+    @AuraEnabled
+    public Integer numOfRecords;
+    @AuraEnabled
+    public Id jobId;
   }
 }

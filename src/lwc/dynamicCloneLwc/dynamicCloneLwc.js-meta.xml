@@ -17,7 +17,7 @@
         type="String"
         placeholder="Ex: Contacts,Opportunities,Cases"
         required="true"
-        label="Parent Object API name"
+        label="Child Relationship Names"
         description="Enter the names of child relationships to be made available to clone records for"
       />
         </targetConfig>
