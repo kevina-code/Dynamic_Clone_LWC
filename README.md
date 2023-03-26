@@ -14,4 +14,4 @@ Only child objects actually containing records are displayed.
 
 ![image](https://user-images.githubusercontent.com/124932501/227751122-171c223b-5f54-47ec-bc86-17adc9525c84.png)
 
-![image](https://user-images.githubusercontent.com/124932501/227751150-fc5eed9f-c0e4-4b14-b39d-67ade11ec49d.png)
+![image](https://user-images.githubusercontent.com/124932501/227751414-7afdc2e9-05d0-4343-a323-63a3168e7f2a.png)
