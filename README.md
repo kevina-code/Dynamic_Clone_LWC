@@ -10,9 +10,8 @@ Only child objects actually containing records are displayed.
 	<img src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png" alt="Deploy to Salesforce" />
 </a>
 
-Screenshot:
-![Dynamic_Clone_pic](https://user-images.githubusercontent.com/124932501/222239278-12d5b562-4745-43d7-a738-421eba64695d.png)
+![image](https://user-images.githubusercontent.com/124932501/227751104-0aa2c3b1-e4d1-4d82-b131-9da20353f585.png)
 
-Short demo video:
+![image](https://user-images.githubusercontent.com/124932501/227751122-171c223b-5f54-47ec-bc86-17adc9525c84.png)
 
-https://user-images.githubusercontent.com/124932501/222240328-2056e2a4-fb07-49c7-8068-decb8abb7e0c.mp4
+![image](https://user-images.githubusercontent.com/124932501/227751150-fc5eed9f-c0e4-4b14-b39d-67ade11ec49d.png)
